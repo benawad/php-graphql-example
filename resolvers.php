@@ -1,28 +1,20 @@
 <?php
 
-$MyDB = new mysqli("localhost", "root", "", "example");
-
-if ($MyDB->connect_errno) {
-    error_log("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
-}
-
-function sql($query) {
-    global $MyDB;
-    $result = mysqli_query($MyDB, $query);
-    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);  
-
-    return $rows;
-}
-
 return [
     'Person' => [
-        'pets' =>  function($root, $args) {
-            return sql("SELECT isDog, sound FROM pets WHERE owner = {$root['id']};");
+        'pets' =>  function($root, $args, $context) {
+            $p = $context['petLoader']->load($root['id']);
+            error_log(print_r($p, true));
+            $p->then(function($data) {
+                error_log("data");
+                error_log(print_r($data, true));
+            });
+            return $p;
         },
     ],
     'Query' => [
-        'getPerson' => function($root, $args, $context) {
-            return sql("SELECT name, id FROM people")[0];
+        'getPeople' => function($root, $args, $context) {
+            return $context['sql']("SELECT name, id FROM people");
         }
     ]
 ];

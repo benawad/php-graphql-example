@@ -1,5 +1,5 @@
 type Query {
-  getPerson: Person
+  getPeople: [Person]
 }
 
 type Person {

@@ -1,6 +1,7 @@
 {
     "require": {
         "webonyx/graphql-php": "^0.11.5",
-        "leocavalcante/siler": "^1.0"
+        "leocavalcante/siler": "^1.0",
+        "overblog/dataloader-php": "^0.5.2"
     }
 }

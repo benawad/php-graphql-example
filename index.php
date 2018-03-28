@@ -3,20 +3,51 @@
 require_once 'vendor/autoload.php';
 
 use Siler\Graphql;
+use GraphQL\GraphQL as WGraphql;
 use Siler\Http\Request;
 use Siler\Http\Response;
-
-require 'vendor/autoload.php';
+use Overblog\DataLoader\DataLoader;
+use Overblog\DataLoader\Promise\Adapter\Webonyx\GraphQL\SyncPromiseAdapter;
+use Overblog\PromiseAdapter\Adapter\WebonyxGraphQLSyncPromiseAdapter;
 
 Response\header('Access-Control-Allow-Origin', '*');
 Response\header('Access-Control-Allow-Headers', 'content-type');
 
+$MyDB = new mysqli("localhost", "root", "", "example");
+
+if ($MyDB->connect_errno) {
+    error_log("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+}
+
+function sql($query) {
+    global $MyDB;
+    $result = mysqli_query($MyDB, $query);
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);  
+
+    return $rows;
+}
+
+$graphQLSyncPromiseAdapter = new SyncPromiseAdapter();
+$promiseAdapter = new WebonyxGraphQLSyncPromiseAdapter($graphQLSyncPromiseAdapter);
+
+$petLoader = new DataLoader(function ($keys) use ($promiseAdapter ) {
+    $ids = join(',', $keys);
+    $rows = sql("SELECT isDog, sound FROM pets WHERE owner in ({$ids});");
+    error_log(print_r($rows, true));
+    return $promiseAdapter->createAll($rows);
+ }, $promiseAdapter);
+
+WGraphQL::setPromiseAdapter($graphQLSyncPromiseAdapter);
+
 $context = [
-    'mysqli' => 5
+    'petLoader' => $petLoader,
+    'sql' => function ($query) {
+        return sql($query);
+    }
 ];
 
 if (Request\method_is('post')) {
     $schema = include __DIR__.'/schema.php';
 
-    Graphql\init($schema, null);
+    Graphql\init($schema, null, $context);
 }
