@@ -2,34 +2,21 @@
 
 require_once 'vendor/autoload.php';
 
-use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
-use GraphQL\GraphQL;
-use GraphQL\Type\Schema;
-use GraphQL\Utils\BuildSchema;
+use Siler\Graphql;
+use Siler\Http\Request;
+use Siler\Http\Response;
 
-$contents = file_get_contents('schema.graphql');
-$schema = BuildSchema::build($contents, $typeConfigDecorator);
+require 'vendor/autoload.php';
 
-$rawInput = file_get_contents('php://input');
-$input = json_decode($rawInput, true);
-$query = $input['query'];
-$variableValues = isset($input['variables']) ? $input['variables'] : null;
-$rootValue = include __DIR__ . '/rootvalue.php';
+// Enable CORS
+Response\header('Access-Control-Allow-Origin', '*');
+Response\header('Access-Control-Allow-Headers', 'content-type');
 
-try {
-    $result = GraphQL::executeQuery($schema, $query, $rootValue, null, $variableValues);
-    $output = $result->toArray();
-} catch (\Exception $e) {
-    $output = [
-        'errors' => [
-            [
-                'message' => $e->getMessage()
-            ]
-        ]
-    ];
+// Respond only for POST requests
+if (Request\method_is('post')) {
+    // Retrive the Schema
+    $schema = include __DIR__.'/schema.php';
+
+    // Give it to siler
+    Graphql\init($schema);
 }
-header('Content-Type: application/json');
-echo json_encode($output);
-
-?>

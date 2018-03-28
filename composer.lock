@@ -4,8 +4,85 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ca7b3147be26351b86ae5e5c3449825",
+    "content-hash": "7d163686dc1c8c4b979e67eb51af52b0",
     "packages": [
+        {
+            "name": "leocavalcante/siler",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leocavalcante/siler.git",
+                "reference": "5cf7dc720a4000fe247f69cb8b56e94fda32c6ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leocavalcante/siler/zipball/5cf7dc720a4000fe247f69cb8b56e94fda32c6ad",
+                "reference": "5cf7dc720a4000fe247f69cb8b56e94fda32c6ad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "cboden/ratchet": "^0.4.1",
+                "gabordemooij/redbean": "^5.0.0",
+                "lcobucci/jwt": "^3.2.2",
+                "phpstan/phpstan": "^0.9.2",
+                "phpunit/phpunit": "^7.0.2",
+                "ratchet/pawl": "^0.3.1",
+                "react/http": "^0.8.1",
+                "squizlabs/php_codesniffer": "^3.2.3",
+                "twig/twig": "^2.4.7",
+                "vimeo/psalm": "^1.0.4",
+                "vlucas/phpdotenv": "^2.4.0",
+                "webonyx/graphql-php": "^0.11.5",
+                "zendframework/zend-diactoros": "^1.7.1"
+            },
+            "suggest": {
+                "vlucas/phpdotenv": "Storing configuration in the environment is one of the tenets of a twelve-factor app."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Siler\\": "src/"
+                },
+                "files": [
+                    "src/Container/Container.php",
+                    "src/Diactoros/Diactoros.php",
+                    "src/Dotenv/Dotenv.php",
+                    "src/Functional/Functional.php",
+                    "src/Functional/Monad/Monad.php",
+                    "src/Graphql/Graphql.php",
+                    "src/Http/Http.php",
+                    "src/Http/Request.php",
+                    "src/Http/Response.php",
+                    "src/Jwt/Jwt.php",
+                    "src/Ratchet/Ratchet.php",
+                    "src/Route/Route.php",
+                    "src/Siler.php",
+                    "src/Twig/Twig.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "leocavalcante",
+                    "email": "lc@leocavalcante.com"
+                }
+            ],
+            "description": "Siler is a set of general purpose high-level abstractions aiming an API for declarative programming in PHP.",
+            "keywords": [
+                "api",
+                "framework",
+                "functional",
+                "micro",
+                "router"
+            ],
+            "time": "2018-03-22T03:39:00+00:00"
+        },
         {
             "name": "webonyx/graphql-php",
             "version": "v0.11.5",

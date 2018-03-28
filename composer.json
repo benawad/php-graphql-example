@@ -1,5 +1,6 @@
 {
     "require": {
-        "webonyx/graphql-php": "^0.11.5"
+        "webonyx/graphql-php": "^0.11.5",
+        "leocavalcante/siler": "^1.0"
     }
 }
