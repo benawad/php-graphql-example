@@ -1,15 +1,11 @@
 <?php
 
+use Overblog\DataLoader\DataLoader;
+
 return [
     'Person' => [
-        'pets' =>  function($root, $args, $context) {
-            $p = $context['petLoader']->load($root['id']);
-            error_log(print_r($p, true));
-            $p->then(function($data) {
-                error_log("data");
-                error_log(print_r($data, true));
-            });
-            return $p;
+        'pet' =>  function($root, $args, $context) {
+            return DataLoader::await($context['petLoader']->load($root['id']));
         },
     ],
     'Query' => [

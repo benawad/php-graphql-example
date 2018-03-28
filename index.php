@@ -32,9 +32,12 @@ $promiseAdapter = new WebonyxGraphQLSyncPromiseAdapter($graphQLSyncPromiseAdapte
 
 $petLoader = new DataLoader(function ($keys) use ($promiseAdapter ) {
     $ids = join(',', $keys);
-    $rows = sql("SELECT isDog, sound FROM pets WHERE owner in ({$ids});");
-    error_log(print_r($rows, true));
-    return $promiseAdapter->createAll($rows);
+    $idMap = array_flip($keys);
+    $rows = sql("SELECT owner, isDog, sound FROM pets WHERE owner in ({$ids});");
+    foreach ($rows as $r) {
+        $idMap[$r['owner']] = $r;
+    }
+    return $promiseAdapter->createAll(array_values($idMap));
  }, $promiseAdapter);
 
 WGraphQL::setPromiseAdapter($graphQLSyncPromiseAdapter);
