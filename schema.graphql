@@ -1,0 +1,13 @@
+type Query {
+  getPerson: Person
+}
+
+type Person {
+  name: String
+  pet: Pet
+}
+
+type Pet {
+  isDog: Boolean
+  sound: String
+}
