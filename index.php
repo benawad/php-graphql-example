@@ -8,15 +8,15 @@ use Siler\Http\Response;
 
 require 'vendor/autoload.php';
 
-// Enable CORS
 Response\header('Access-Control-Allow-Origin', '*');
 Response\header('Access-Control-Allow-Headers', 'content-type');
 
-// Respond only for POST requests
+$context = [
+    'mysqli' => 5
+];
+
 if (Request\method_is('post')) {
-    // Retrive the Schema
     $schema = include __DIR__.'/schema.php';
 
-    // Give it to siler
-    Graphql\init($schema);
+    Graphql\init($schema, null);
 }

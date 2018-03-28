@@ -8,21 +8,14 @@ if ($MyDB->connect_errno) {
 
 function sql($query) {
     global $MyDB;
+    echo $query;
     $result = mysqli_query($MyDB, $query);
     $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);  
 
     return $rows;
 }
 
-return [
-    'Person' => [
-        'pets' =>  function($root, $args) {
-            return sql("SELECT isDog, sound FROM pets WHERE owner = {$root['id']};");
-        },
-    ],
-    'Query' => [
-        'getPerson' => function($root, $args, $context) {
-            return sql("SELECT name, id FROM people")[0];
-        }
-    ]
-];
+$id = 1;
+
+$res = sql("SELECT isDog, sound FROM pets WHERE owner = {$id};")[0];
+echo print_r($res, true);

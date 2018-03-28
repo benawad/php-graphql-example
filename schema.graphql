@@ -4,7 +4,7 @@ type Query {
 
 type Person {
   name: String
-  pet: Pet
+  pets: [Pet]
 }
 
 type Pet {
