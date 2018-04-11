@@ -24,7 +24,7 @@ services:
       MYSQL_USER: user
     volumes:
     #- /var/lib/mysql
-    - schema.sql:/docker-entrypoint-initdb.d/1.sql:ro
+    - ./schema.sql:/docker-entrypoint-initdb.d/1.sql:ro
     - /etc/timezone:/etc/timezone:ro
     #___IF_DEV___ports:
     #___IF_DEV___- 3306:3306
