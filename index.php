@@ -10,7 +10,9 @@ use Overblog\DataLoader\DataLoader;
 use Overblog\DataLoader\Promise\Adapter\Webonyx\GraphQL\SyncPromiseAdapter;
 use Overblog\PromiseAdapter\Adapter\WebonyxGraphQLSyncPromiseAdapter;
 
-Response\header('Access-Control-Allow-Origin', '*');
+@$http_origin = $_SERVER['HTTP_ORIGIN'];
+if (!isset($http_origin) || !$http_origin) $http_origin = "*";
+Response\header('Access-Control-Allow-Origin', $http_origin);
 Response\header('Access-Control-Allow-Headers', 'content-type');
 
 $MyDB = new mysqli("db", "root", "123", "example");
