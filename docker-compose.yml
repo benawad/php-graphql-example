@@ -13,8 +13,8 @@ services:
     - db
     depends_on:
     - db
-    #___IF_DEV___ports:
-    #___IF_DEV___- 886:80
+    ports:
+    - 80:80
   db:
     image: mariadb:10.2
     environment:
