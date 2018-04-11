@@ -33,6 +33,16 @@ CREATE TABLE `people` (
 /*!40101 SET character_set_client = @saved_cs_client */;
  
 --
+-- Dumping data for table `people`
+--
+ 
+LOCK TABLES `people` WRITE;
+/*!40000 ALTER TABLE `people` DISABLE KEYS */;
+INSERT INTO `people` VALUES (1,'bob','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'bob2','0000-00-00 00:00:00','0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `people` ENABLE KEYS */;
+UNLOCK TABLES;
+ 
+--
 -- Table structure for table `pets`
 --
  
@@ -52,6 +62,16 @@ CREATE TABLE `pets` (
   CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`owner`) REFERENCES `people` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+--
+-- Dumping data for table `pets`
+--
+ 
+LOCK TABLES `pets` WRITE;
+/*!40000 ALTER TABLE `pets` DISABLE KEYS */;
+INSERT INTO `pets` VALUES (1,1,'bark','0000-00-00 00:00:00','0000-00-00 00:00:00',1),(2,0,'moo','0000-00-00 00:00:00','0000-00-00 00:00:00',2);
+/*!40000 ALTER TABLE `pets` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
  
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -62,4 +82,4 @@ CREATE TABLE `pets` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
  
--- Dump completed on 2018-04-11 15:07:04
+-- Dump completed on 2018-04-11 15:13:12
