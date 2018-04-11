@@ -13,7 +13,7 @@ use Overblog\PromiseAdapter\Adapter\WebonyxGraphQLSyncPromiseAdapter;
 Response\header('Access-Control-Allow-Origin', '*');
 Response\header('Access-Control-Allow-Headers', 'content-type');
 
-$MyDB = new mysqli("localhost", "root", "", "example");
+$MyDB = new mysqli("db", "root", "123", "example");
 
 if ($MyDB->connect_errno) {
     error_log("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
