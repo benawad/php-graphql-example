@@ -1,9 +1,9 @@
 version: '2'
 services:
   php:
-    image: php:7.1-apache
+    image: php:7.2-apache
     environment:
-      #APACHE_DOCUMENT_ROOT: /var/www/html/app/
+      APACHE_DOCUMENT_ROOT: /var/www/
     volumes:
     - ./:/var/www/html/:ro
     - /etc/timezone:/etc/timezone:ro
