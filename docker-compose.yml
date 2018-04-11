@@ -14,7 +14,7 @@ services:
     ports:
     - 80:80
   phpmyadmin:
-    image: phpmyadmin
+    image: phpmyadmin/phpmyadmin
     volumes:
     - /etc/timezone:/etc/timezone:ro
     ports:
