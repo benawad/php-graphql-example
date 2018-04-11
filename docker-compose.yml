@@ -1,0 +1,50 @@
+version: '2'
+services:
+  php:
+    image: php:7.1-apache
+    environment:
+      #APACHE_DOCUMENT_ROOT: /var/www/html/app/
+    volumes:
+    - ./:/var/www/html/:ro
+    - /etc/timezone:/etc/timezone:ro
+    #___IF_DEV___- /filepool/:/var/www/filepool/
+    #___IF_DEV___- /usr/local/share/pabau/:/usr/local/share/pabau/
+    links:
+    - db
+    depends_on:
+    - db
+    #___IF_DEV___ports:
+    #___IF_DEV___- 886:80
+  db:
+    image: mariadb:10.2
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_PASSWORD: '123'
+      MYSQL_ROOT_PASSWORD: '123'
+      MYSQL_USER: user
+    volumes:
+    #- /var/lib/mysql
+    - schema.sql:/docker-entrypoint-initdb.d/1.sql:ro
+    - /etc/timezone:/etc/timezone:ro
+    #___IF_DEV___ports:
+    #___IF_DEV___- 3306:3306
+    command:
+    - mysqld
+    - --key_buffer_size=64K
+    - --max_allowed_packet=1073741824
+    - --max_connections=1500
+    - --sql_mode=ONLY_FULL_GROUP_BY
+    - --query_cache_limit=1M
+    - --query_cache_size=16M
+    - --query_cache_type=0
+    - --innodb_buffer_pool_size=30M
+    - --innodb_buffer_pool_instances=2
+    - --log_error=/var/log/mysql/error.log
+    - --expire_logs_days=2
+    - --myisam_recover_options=BACKUP
+    - --thread_cache_size=10
+    - --table_open_cache=1024
+    labels:
+      io.rancher.container.pull_image: always
+      #io.rancher.sidekicks: phpmyadmin
+      io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=$${stack_name}/php
