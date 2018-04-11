@@ -1,7 +1,7 @@
 version: '2'
 services:
   php:
-    image: php:7.2-apache
+    build: .
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/
     volumes:
