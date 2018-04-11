@@ -15,7 +15,7 @@ services:
     labels:
       traefik.frontend.rule: 'Host:___HOSTNAME___'
       traefik.enable: 'true'
-      traefik.port: 80
+      traefik.port: '80'
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     volumes:
