@@ -3,12 +3,10 @@ services:
   php:
     image: php:7.2-apache
     environment:
-      APACHE_DOCUMENT_ROOT: /var/www/
+      APACHE_DOCUMENT_ROOT: /var/www/html/
     volumes:
     - ./:/var/www/html/:ro
     - /etc/timezone:/etc/timezone:ro
-    #___IF_DEV___- /filepool/:/var/www/filepool/
-    #___IF_DEV___- /usr/local/share/pabau/:/usr/local/share/pabau/
     links:
     - db
     depends_on:
@@ -23,11 +21,8 @@ services:
       MYSQL_ROOT_PASSWORD: '123'
       MYSQL_USER: user
     volumes:
-    #- /var/lib/mysql
     - ./schema.sql:/docker-entrypoint-initdb.d/1.sql:ro
     - /etc/timezone:/etc/timezone:ro
-    #___IF_DEV___ports:
-    #___IF_DEV___- 3306:3306
     command:
     - mysqld
     - --key_buffer_size=64K
@@ -44,7 +39,3 @@ services:
     - --myisam_recover_options=BACKUP
     - --thread_cache_size=10
     - --table_open_cache=1024
-    labels:
-      io.rancher.container.pull_image: always
-      #io.rancher.sidekicks: phpmyadmin
-      io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=$${stack_name}/php
