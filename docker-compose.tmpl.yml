@@ -11,7 +11,6 @@ services:
     - db
     depends_on:
     - db
-    - traefik
     labels:
       traefik.frontend.rule: 'Host:___HOSTNAME___'
       traefik.enable: 'true'
@@ -53,6 +52,7 @@ services:
     - --table_open_cache=1024
   traefik:
     image: rawmind/alpine-traefik:1.5.4-1
+    command: ["--docker"]
     ports:
     - 80:8083/tcp
     - 443:443/tcp
