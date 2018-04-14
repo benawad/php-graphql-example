@@ -24,6 +24,6 @@ onHostRule = true
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "traefik.localhost.com"
+domain = "docker.local"
 watch = true
 exposedByDefault = false
