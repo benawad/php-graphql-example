@@ -13,7 +13,7 @@ use Overblog\PromiseAdapter\Adapter\WebonyxGraphQLSyncPromiseAdapter;
 @$http_origin = $_SERVER['HTTP_ORIGIN'];
 if (!isset($http_origin) || !$http_origin) $http_origin = "*";
 Response\header('Access-Control-Allow-Origin', $http_origin);
-Response\header('Access-Control-Allow-Headers', 'content-type x-apollo-tracing');
+Response\header('Access-Control-Allow-Headers', 'content-type, x-apollo-tracing');
 Response\header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
 
 $MyDB = new mysqli("db", "root", "123", "example");
