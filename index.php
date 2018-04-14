@@ -10,13 +10,16 @@ use Overblog\DataLoader\DataLoader;
 use Overblog\DataLoader\Promise\Adapter\Webonyx\GraphQL\SyncPromiseAdapter;
 use Overblog\PromiseAdapter\Adapter\WebonyxGraphQLSyncPromiseAdapter;
 
-Response\header('Access-Control-Allow-Origin', '*');
-Response\header('Access-Control-Allow-Headers', 'content-type');
+@$http_origin = $_SERVER['HTTP_ORIGIN'];
+if (!isset($http_origin) || !$http_origin) $http_origin = "*";
+Response\header('Access-Control-Allow-Origin', $http_origin);
+Response\header('Access-Control-Allow-Headers', 'content-type, x-apollo-tracing');
+Response\header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
 
-$MyDB = new mysqli("localhost", "root", "", "example");
+$MyDB = new mysqli("db", "root", "123", "example");
 
 if ($MyDB->connect_errno) {
-    error_log("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+    die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 }
 
 function sql($query) {

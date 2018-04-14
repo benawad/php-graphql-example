@@ -1,9 +1,9 @@
 <?php
 
-$MyDB = new mysqli("localhost", "root", "", "example");
+$MyDB = new mysqli("db", "root", "123", "example");
 
 if ($MyDB->connect_errno) {
-    error_log("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+    die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 }
 
 function sql($query) {
@@ -19,3 +19,6 @@ $id = 1;
 
 $res = sql("SELECT isDog, sound FROM pets WHERE owner = {$id};")[0];
 echo print_r($res, true);
+
+echo "<hr/>";
+echo print_r($_SERVER, true);
