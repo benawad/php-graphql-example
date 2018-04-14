@@ -19,3 +19,6 @@ $id = 1;
 
 $res = sql("SELECT isDog, sound FROM pets WHERE owner = {$id};")[0];
 echo print_r($res, true);
+
+echo "<hr/>";
+echo print_r($_SERVER, true);
